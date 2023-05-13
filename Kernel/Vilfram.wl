@@ -35,7 +35,9 @@ $VilframCommands = {
 	{"b"} :> FrontEndTokenExecute["MovePreviousWord"],
 	{"e"} :> FrontEndTokenExecute["MoveNextWord"],
 	{"^"} :> FrontEndTokenExecute["MoveLineBeginning"],
-	{"$"} :> FrontEndTokenExecute["MoveLineEnd"]
+	{"$"} :> FrontEndTokenExecute["MoveLineEnd"],
+	{"G"} :> SelectionMove[EvaluationNotebook[], Before, Notebook],
+	{"g", "g"} :> SelectionMove[EvaluationNotebook[], After, Notebook]
 };
 
 (*====================================*)
