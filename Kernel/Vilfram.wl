@@ -53,6 +53,18 @@ $VilframCommands = {
 	{"x"} :> FrontEndTokenExecute["Cut"],
 	{"y"} :> FrontEndTokenExecute["Copy"],
 	{"p"} :> FrontEndTokenExecute["Paste"],
+	{":", "w", "\r"} :> (
+		FrontEndTokenExecute["Save"];
+	),
+	{":", "x", "\r"} :> (
+		FrontEndTokenExecute["Save"];
+		FrontEndTokenExecute["Close"];
+	),
+	{"d", "e"} :> FrontEndTokenExecute["DeleteNextWord"],
+	{"d", "b"} :> FrontEndTokenExecute["DeletePreviousWord"],
+	{"d", "w"} :> FrontEndTokenExecute["DeleteNextNaturalWord"],
+	{"d", "^"} :> FrontEndTokenExecute["DeleteLineBeginning"],
+	{"d", "$"} :> FrontEndTokenExecute["DeleteLineEnd"],
 	(*--------------------------------*)
 	(* Visual selection sub-commands. *)
 	(*--------------------------------*)
