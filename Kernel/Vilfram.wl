@@ -84,6 +84,22 @@ $VilframCommands = {
 		FrontEndTokenExecute["SelectPreviousLine"];
 		$RetainKeyCommandSequence
 	),
+	{"v", ___, "e"} :> (
+		FrontEndTokenExecute["SelectNextWord"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "b"} :> (
+		FrontEndTokenExecute["SelectPreviousWord"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "$"} :> (
+		FrontEndTokenExecute["SelectLineEnd"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "^"} :> (
+		FrontEndTokenExecute["SelectLineBeginning"];
+		$RetainKeyCommandSequence
+	),
 	{"v", ___, "x"} :> (
 		FrontEndTokenExecute["Cut"];
 	),
