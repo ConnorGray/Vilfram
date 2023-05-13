@@ -37,7 +37,7 @@ $VilframCommands = {
 	(* Common Vi Commands *)
 	(*--------------------*)
 	{"i" | "a"} :> (
-		CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}] = "Insert"
+		setState[EvaluationNotebook[], "Mode" -> "Insert"]
 	),
 	{"j"} :> FrontEndTokenExecute["MoveNextLine"],
 	{"k"} :> FrontEndTokenExecute["MovePreviousLine"],
@@ -121,7 +121,7 @@ EnableVilfram[nb_NotebookObject] :=
 	SetOptions[nb, {
 		NotebookEventActions -> {
 			PassEventsDown :> (
-				CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}] =!= "Command"
+				getState[EvaluationNotebook[], "Mode"] =!= "Command"
 				&& CurrentValue["EventKey"] =!= "\[RawEscape]"
 			),
 			"KeyDown" :> processKeyDown[EvaluationNotebook[], CurrentValue["EventKey"]]
@@ -142,8 +142,8 @@ EnableVilfram[nb_NotebookObject] :=
 (*====================================*)
 
 processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
-	currentMode = CurrentValue[nb, {TaggingRules, "Vilfram", "Mode"}],
-	setMode = mode |-> CurrentValue[nb, {TaggingRules, "Vilfram", "Mode"}] = mode
+	currentMode = getState[nb, "Mode"],
+	setMode = mode |-> setState[nb, "Mode" -> mode]
 }, Module[{
 	keySequence,
 	result
@@ -152,11 +152,11 @@ processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
 		Replace[currentMode, {
 			"Command" :> (
 				(* Reset the command sequence back to empty. *)
-				CurrentValue[nb, {TaggingRules, "Vilfram", "KeySequence"}] = {};
+				setState[nb, "KeySequence" -> {}];
 			),
 			"Insert" | _ :> (
 				(* Switch to Command mode. *)
-				setMode["Command"];
+				setState[nb, "Mode" -> "Command"];
 			)
 		}];
 
@@ -175,7 +175,7 @@ processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
 	(* Construct the key command sequence by appending the latest key to
 		any keys stored keys that were previously pressed but didn't match
 		a key command pattern. *)
-	keySequence = Replace[CurrentValue[nb, {TaggingRules, "Vilfram", "KeySequence"}], {
+	keySequence = Replace[getState[nb, "KeySequence"], {
 		Inherited -> {key},
 		keys:{___?StringQ} :> Append[keys, key],
 		other_ :> (
@@ -197,15 +197,38 @@ processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
 	Replace[result, {
 		Missing["NoCommandKeySequenceMatches"] | $RetainKeyCommandSequence :> (
 			(* No command key sequence matched, so save the updated key sequence. *)
-			CurrentValue[nb, {TaggingRules, "Vilfram", "KeySequence"}] = keySequence;
+			setState[nb, "KeySequence" -> keySequence];
 		),
 		_ :> (
 			(* A key command sequence matched the user's input, so reset the
 				stored command key sequence. *)
-			CurrentValue[nb, {TaggingRules, "Vilfram", "KeySequence"}] = {};
+			setState[nb, "KeySequence" -> {}];
 		)
 	}];
 ]]
+
+(*====================================*)
+
+(*
+	Store Vilfram state on a per-notebook basis, but without storing it into
+	the notebook itself.
+
+	These use $FrontEndSession so that separate command state is maintained in
+	different notebooks, but the overall state is cleared when the FrontEnd is
+	restarted.
+*)
+
+getState[nb_NotebookObject, key_?StringQ] :=
+	CurrentValue[
+		$FrontEndSession,
+		{PrivateFrontEndOptions, "InterfaceSettings", "ConnorGray/Vilfram", nb, key}
+	];
+
+setState[nb_NotebookObject, key_?StringQ -> value_] :=
+	CurrentValue[
+		$FrontEndSession,
+		{PrivateFrontEndOptions, "InterfaceSettings", "ConnorGray/Vilfram", nb, key}
+	] = value;
 
 (*====================================*)
 
