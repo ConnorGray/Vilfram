@@ -128,8 +128,14 @@ EnableVilfram[nb_NotebookObject] :=
 		},
 		WindowStatusArea -> Dynamic[
 			"Vilfram: "
-			<> CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}]
-			<> " \[LongDash] " <> ToString[CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "KeySequence"}]]
+			<> With[{
+				mode = CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}]
+			},
+				If[StringQ[mode],
+					mode,
+					"<Uninitialized>"
+				]
+			] <> " \[LongDash] " <> ToString[CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "KeySequence"}]]
 		]
 	}]
 
