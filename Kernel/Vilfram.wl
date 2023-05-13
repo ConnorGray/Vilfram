@@ -49,6 +49,32 @@ $VilframCommands = {
 	{"$"} :> FrontEndTokenExecute["MoveLineEnd"],
 	{"G"} :> SelectionMove[EvaluationNotebook[], Before, Notebook],
 	{"g", "g"} :> SelectionMove[EvaluationNotebook[], After, Notebook],
+	{"u"} :> FrontEndTokenExecute["Undo"],
+	{"x"} :> FrontEndTokenExecute["Cut"],
+	{"y"} :> FrontEndTokenExecute["Copy"],
+	{"p"} :> FrontEndTokenExecute["Paste"],
+	(*--------------------------------*)
+	(* Visual selection sub-commands. *)
+	(*--------------------------------*)
+	{"v", ___, "h"} :> (
+		FrontEndTokenExecute["SelectPrevious"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "l"} :> (
+		FrontEndTokenExecute["SelectNext"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "j"} :> (
+		FrontEndTokenExecute["SelectNextLine"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "k"} :> (
+		FrontEndTokenExecute["SelectPreviousLine"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "x"} :> (
+		FrontEndTokenExecute["Cut"];
+	),
 	(*------------------*)
 	(* Vi-like Commands *)
 	(*------------------*)
