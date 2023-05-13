@@ -20,11 +20,22 @@ GeneralUtilities`SetUsage[EnableVilfram, "
 EnableVilfram[nbobj$] enables Vilfram keyboard behavior in the notebook represented by the notebook object nbobj$.
 "]
 
+GeneralUtilities`SetUsage[$RetainKeyCommandSequence, "
+RetainKeySequence is a special value that, when returned from a Vilfram command handler, indicates
+that the current key sequence should not be reset.
+
+This is intended to be used by Vilfram command that is 'sticky'.
+"]
+
+
 Begin["`Private`"]
 
 (*====================================*)
 
 $VilframCommands = {
+	(*--------------------*)
+	(* Common Vi Commands *)
+	(*--------------------*)
 	{"i" | "a"} :> (
 		CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}] = "Insert"
 	),
@@ -37,7 +48,17 @@ $VilframCommands = {
 	{"^"} :> FrontEndTokenExecute["MoveLineBeginning"],
 	{"$"} :> FrontEndTokenExecute["MoveLineEnd"],
 	{"G"} :> SelectionMove[EvaluationNotebook[], Before, Notebook],
-	{"g", "g"} :> SelectionMove[EvaluationNotebook[], After, Notebook]
+	{"g", "g"} :> SelectionMove[EvaluationNotebook[], After, Notebook],
+	(*------------------*)
+	(* Vi-like Commands *)
+	(*------------------*)
+	{"d", Repeated["i"]} :> (
+		FrontEndTokenExecute["ExpandSelection"];
+		$RetainKeyCommandSequence
+	),
+	{"d", Repeated["i"], "\r"} :> (
+		NotebookDelete[EvaluationNotebook[]]
+	)
 };
 
 (*====================================*)
@@ -114,7 +135,7 @@ processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
 	];
 
 	Replace[result, {
-		Missing["NoCommandKeySequenceMatches"] :> (
+		Missing["NoCommandKeySequenceMatches"] | $RetainKeyCommandSequence :> (
 			(* No command key sequence matched, so save the updated key sequence. *)
 			CurrentValue[nb, {TaggingRules, "Vilfram", "KeySequence"}] = keySequence;
 		),
