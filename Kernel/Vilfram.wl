@@ -8,27 +8,27 @@
 (*Dynamic[CurrentValue[EvaluationNotebook[], {TaggingRules,"Vilfram"}]]*)
 
 
-BeginPackage["ConnorGray`Vilfram`"]
+BeginPackage["ConnorGray`Vilfram`"];
 
 Needs["GeneralUtilities`"]
 
 GeneralUtilities`SetUsage[$VilframCommands, "
 $VilframCommands contains the recognized command sequences and actions to be executed.
-"]
+"];
 
 GeneralUtilities`SetUsage[EnableVilfram, "
 EnableVilfram[nbobj$] enables Vilfram keyboard behavior in the notebook represented by the notebook object nbobj$.
-"]
+"];
 
 GeneralUtilities`SetUsage[$RetainKeyCommandSequence, "
 RetainKeySequence is a special value that, when returned from a Vilfram command handler, indicates
 that the current key sequence should not be reset.
 
 This is intended to be used by Vilfram command that is 'sticky'.
-"]
+"];
 
 
-Begin["`Private`"]
+Begin["`Private`"];
 
 (*====================================*)
 
@@ -209,9 +209,7 @@ processKeyDown[nb_NotebookObject, key_?StringQ] := With[{
 
 (*====================================*)
 
-End[]
+End[];
 
-EndPackage[]
-
-
+EndPackage[];
 
