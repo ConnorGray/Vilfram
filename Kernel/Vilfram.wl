@@ -17,7 +17,24 @@ $VilframCommands contains the recognized command sequences and actions to be exe
 "];
 
 GeneralUtilities`SetUsage[EnableVilfram, "
-EnableVilfram[nbobj$] enables Vilfram keyboard behavior in the notebook represented by the notebook object nbobj$.
+EnableVilfram[] enables Vilfram for the current and future front end sessions.
+
+EnableVilfram[$FrontEndSession] enables Vilfram for the current front end session.
+
+EnableVilfram[$FrontEndSession] is called automatically at the beginning of
+every front end session if the ConnorGray/Vilfram paclet is installed and enabled.
+"];
+
+(* EnableVilfram[nbobj$] enables Vilfram keyboard behavior in the notebook represented by the notebook object nbobj$. *)
+
+GeneralUtilities`SetUsage[DisableVilfram, "
+DisableVilfram[] disables Vilfram for the current and future front end sessions.
+
+DisableVilfram[$FrontEndSession] disables Vilfram for the current front end session.
+
+DisableVilfram uninstalls the global event handlers used by Vilfram, and uses
+PacletDisable to prevent the ConnorGray/Vilfram paclet from automatically
+loading in future front end sessions.
 "];
 
 GeneralUtilities`SetUsage[$RetainKeyCommandSequence, "
@@ -128,6 +145,11 @@ $VilframCommands = {
 
 (*====================================*)
 
+EnableVilfram[] := (
+	EnableVilfram[$FrontEndSession];
+	PacletEnable["ConnorGray/Vilfram"]
+)
+
 EnableVilfram[obj:$FrontEndSession] :=
 	setVilframOptions[obj]
 
@@ -141,6 +163,19 @@ setVilframOptions[obj : $FrontEndSession | _NotebookObject] :=
 			"KeyDown" :> processKeyDown[EvaluationNotebook[], CurrentValue["EventKey"]]
 		}
 	}]
+
+(*====================================*)
+
+DisableVilfram[] := (
+	DisableVilfram[$FrontEndSession];
+	PacletDisable["ConnorGray/Vilfram"]
+)
+
+DisableVilfram[$FrontEndSession] := (
+	SetOptions[$FrontEndSession, {
+		NotebookEventActions -> Inherited
+	}];
+)
 
 (*====================================*)
 
