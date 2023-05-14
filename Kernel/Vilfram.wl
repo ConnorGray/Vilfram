@@ -128,26 +128,18 @@ $VilframCommands = {
 
 (*====================================*)
 
-EnableVilfram[nb_NotebookObject] :=
-	SetOptions[nb, {
+EnableVilfram[obj:$FrontEndSession] :=
+	setVilframOptions[obj]
+
+setVilframOptions[obj : $FrontEndSession | _NotebookObject] :=
+	SetOptions[obj, {
 		NotebookEventActions -> {
 			PassEventsDown :> (
 				getState[EvaluationNotebook[], "Mode"] =!= "Command"
 				&& CurrentValue["EventKey"] =!= "\[RawEscape]"
 			),
 			"KeyDown" :> processKeyDown[EvaluationNotebook[], CurrentValue["EventKey"]]
-		},
-		WindowStatusArea -> Dynamic[
-			"Vilfram: "
-			<> With[{
-				mode = CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "Mode"}]
-			},
-				If[StringQ[mode],
-					mode,
-					"<Uninitialized>"
-				]
-			] <> " \[LongDash] " <> ToString[CurrentValue[EvaluationNotebook[], {TaggingRules, "Vilfram", "KeySequence"}]]
-		]
+		}
 	}]
 
 (*====================================*)
