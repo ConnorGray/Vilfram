@@ -1,8 +1,8 @@
-# Vilfram
+# Vilfram *— Vi for Wolfram*
 
 Vi-like editing in Wolfram Notebooks
 
-[[TODO: Feature overview GIF showing movement, selection expansion, etc. ]]
+<!-- [[TODO: Feature overview GIF showing movement, selection expansion, etc. ]] -->
 
 ### Features
 
@@ -13,6 +13,20 @@ Vi-like editing in Wolfram Notebooks
   including: .nb, .wl, .wls, .wlt, and more.
 
 
+
+## Getting Started
+
+The [ConnorGray/Vilfram](https://paclets.com/ConnorGray/Vilfram) paclet can be
+installed from [paclets.com](https://paclets.com) by evaluating:
+
+```wolfram
+PacletInstall["ConnorGray/Vilfram"]
+```
+
+Once installed, Vilfram will automatically be available and enabled in any
+opened notebook.
+
+[**Disabling Vilfram »**](#disabling-vilfram)
 
 ## Examples
 
@@ -121,6 +135,26 @@ typically character-based editors.
   Vi often distinguishes between Insert and Command mode by, respectively,
   changing the input caret between a block which is placed on a particular
   character, and a vertical bar which is placed in-between characters. -->
+
+
+
+## Disabling Vilfram
+
+> "Help! I installed Vilfram and now I'm stuck!"
+
+**Don't panic.**
+[You're not the first to get stuck in Vi.](https://stackoverflow.blog/2017/05/23/stack-overflow-helping-one-million-developers-exit-vim/)
+
+To disable Vilfram, use your mouse to select the **Edit** > **Disable Vilfram**
+menu item:
+
+![Disable Vilfram menu item](./docs/media/enable-disable-menu-items.png)
+
+This will persistently disable Vilfram in the current and future sessions.
+
+Use **Edit** > **Enable Vilfram** to re-enable Vilfram.
+
+
 
 
 [WindowStatusArea]: https://reference.wolfram.com/language/ref/WindowStatusArea
