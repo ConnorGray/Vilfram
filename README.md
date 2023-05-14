@@ -4,16 +4,6 @@ Vi-like editing in Wolfram Notebooks
 
 [[TODO: Feature overview GIF showing movement, selection expansion, etc. ]]
 
-![Vilfram basic movement](./docs/media/vilfram-E1-basic-movement.gif)
-
-![Vilfram mode switching](./docs/media/vilfram-E2-switch-modes.gif)
-
-![Vilfram line and word movement](./docs/media/vilfram-E3-line-and-word-movement.gif)
-
-![Vilfram visual selection](./docs/media/vilfram-E4-visual-selection.gif)
-
-![Vilfram smart selection expansion](./docs/media/vilfram-E5-smart-selection-expansion.gif)
-
 ### Features
 
 * Vilfram supports most of the standard Vi-like movement, selection, and
@@ -26,15 +16,27 @@ Vi-like editing in Wolfram Notebooks
 
 ## Examples
 
-#### Switch between Insert and Command mode:
-
-The current mode is indicated in the [Window Status Area][WindowStatusArea]:
-
-
 #### Use `h`, `j`, `k`, and `l` keys for basic movement:
 
+![Vilfram basic movement](./docs/media/vilfram-E1-basic-movement.gif)
 
-#### Superpowered selection expansion
+#### Switch between Insert and Command mode:
+
+<!-- The current mode is indicated in the [Window Status Area][WindowStatusArea]: -->
+
+![Vilfram mode switching](./docs/media/vilfram-E2-switch-modes.gif)
+
+#### Use `$`, `^`, `e`, and `b` to jump to the beginning and end of lines and words
+
+![Vilfram line and word movement](./docs/media/vilfram-E3-line-and-word-movement.gif)
+
+#### Use visual selection to quickly copy, cut, and delete
+
+![Vilfram visual selection](./docs/media/vilfram-E4-visual-selection.gif)
+
+#### Smart selection expansion to efficiently select the right subexpression
+
+![Vilfram smart selection expansion](./docs/media/vilfram-E5-smart-selection-expansion.gif)
 
 
 
