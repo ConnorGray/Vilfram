@@ -43,7 +43,14 @@ $VilframCommands = {
 	{"k"} :> FrontEndTokenExecute["MovePreviousLine"],
 	{"h"} :> FrontEndTokenExecute["MovePrevious"],
 	{"l"} :> FrontEndTokenExecute["MoveNext"],
-	{"b"} :> FrontEndTokenExecute["MovePreviousWord"],
+	(* TODO: This should be MovePreviousWord, however that token appears to a
+		have a bug when used in textual cells: it gets "stuck" at the beginning
+		of a word boundary and won't move back. MovePreviousNaturalWord doesn't
+		have that problem, and also works in box/typesetting cells. *)
+	{"b"} :> FrontEndTokenExecute["MovePreviousNaturalWord"],
+	(* TODO: This isn't the right behavior. `B` should move back through all
+		consecutive non-whitespace. *)
+	{"B"} :> FrontEndTokenExecute["MovePreviousNaturalWord"],
 	{"e"} :> FrontEndTokenExecute["MoveNextWord"],
 	{"^"} :> FrontEndTokenExecute["MoveLineBeginning"],
 	{"$"} :> FrontEndTokenExecute["MoveLineEnd"],
@@ -98,6 +105,10 @@ $VilframCommands = {
 	),
 	{"v", ___, "^"} :> (
 		FrontEndTokenExecute["SelectLineBeginning"];
+		$RetainKeyCommandSequence
+	),
+	{"v", ___, "i"} :> (
+		FrontEndTokenExecute["ExpandSelection"];
 		$RetainKeyCommandSequence
 	),
 	{"v", ___, "x"} :> (
