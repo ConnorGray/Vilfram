@@ -118,7 +118,7 @@ Document-oriented:
 ## Notable differences from Vi
 
 Wolfram Notebooks are different in structure and supported functionality from
-typically character-based editors.
+traditional character-based editors.
 
 * Structured selection commands
 
