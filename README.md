@@ -4,6 +4,16 @@ Vi-like editing in Wolfram Notebooks
 
 [[TODO: Feature overview GIF showing movement, selection expansion, etc. ]]
 
+![Vilfram basic movement](./docs/media/vilfram-E1-basic-movement.gif)
+
+![Vilfram mode switching](./docs/media/vilfram-E2-switch-modes.gif)
+
+![Vilfram line and word movement](./docs/media/vilfram-E3-line-and-word-movement.gif)
+
+![Vilfram visual selection](./docs/media/vilfram-E4-visual-selection.gif)
+
+![Vilfram smart selection expansion](./docs/media/vilfram-E5-smart-selection-expansion.gif)
+
 ### Features
 
 * Vilfram supports most of the standard Vi-like movement, selection, and
@@ -34,7 +44,7 @@ The following Command-mode sequences are supported:
 
 ### Mode switching
 
-* `a`, `i` — enter Insert mode
+* `i`, `a` — enter Insert mode
 * `Esc` — enter Command mode
 
 ### Movement
