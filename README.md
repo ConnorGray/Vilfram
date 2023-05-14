@@ -118,7 +118,9 @@ Document-oriented:
 ## Notable differences from Vi
 
 Wolfram Notebooks are different in structure and supported functionality from
-traditional character-based editors.
+traditional character-based editors. Some Vi commands have Vilfram analogues
+with slightly different behavior that is better suited to the features of
+the notebook environment.
 
 * Structured selection commands
 
@@ -130,11 +132,11 @@ traditional character-based editors.
   - `di+` — expands the selection each time `i` is pressed; deletes when the
   `Return` key is pressed
 
-<!-- * No block caret
+* No block caret
 
   Vi often distinguishes between Insert and Command mode by, respectively,
-  changing the input caret between a block which is placed on a particular
-  character, and a vertical bar which is placed in-between characters. -->
+  changing the input caret between a block which is placed *on* a particular
+  character, and a vertical bar which is placed *in-between* characters.
 
 
 
