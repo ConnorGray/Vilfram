@@ -77,6 +77,15 @@ $VilframCommands = {
 	{"x"} :> FrontEndTokenExecute["Cut"],
 	{"y"} :> FrontEndTokenExecute["Copy"],
 	{"p"} :> FrontEndTokenExecute["Paste"],
+	{"o"} :> (
+		FrontEndTokenExecute["MoveLineEnd"];
+		FrontEndTokenExecute["InsertSoftReturn"];
+	),
+	{"O"} :> (
+		FrontEndTokenExecute["MovePreviousLine"];
+		FrontEndTokenExecute["MoveLineEnd"];
+		FrontEndTokenExecute["InsertSoftReturn"];
+	),
 	{":", "w", "\r"} :> (
 		FrontEndTokenExecute["Save"];
 	),

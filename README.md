@@ -81,6 +81,8 @@ Line-oriented:
 
 * `^` — move to beginning of line
 * `$` — move to end of line
+* `o` — insert new line below
+* `O` — insert new line above
 
 Document-oriented:
 
